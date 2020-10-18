@@ -1,0 +1,20 @@
+<title>Url Shortener</title>
+<body>
+    <center>
+        <input id="link">
+        <button onclick="shorten()">Shorten</button>
+        <p id="response"></p>
+    </center>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    let socket = io()
+
+    function shorten() {
+        socket.emit('create', document.getElementById("link").value)
+    }
+
+    socket.on("response", function(link) {
+        document.getElementById('response').innerHTML = `${window.location.href}l/${link}`
+    })
+</script>
